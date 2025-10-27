@@ -1,0 +1,94 @@
+================================================================================
+                    CORRECTIONS APPORTÉES AU PROJET
+================================================================================
+
+Les problèmes suivants ont été identifiés et corrigés:
+
+1. ANNOTATION NAMEDQUERIES INCORRECTE
+   Fichier: Tache.java
+   Problème: Deux annotations @NamedQuery séparées
+   Solution: Consolidation en @NamedQueries avec tableau d'annotations
+
+2. FORMAT DE DATE FRANÇAIS MANQUANT
+   Fichier: ProjetService.java
+   Problème: Date en anglais ("January" au lieu de "Janvier")
+   Solution: Ajout de java.util.Locale.FRENCH dans SimpleDateFormat
+
+3. FORMATAGE DE SORTIE INCORRECT
+   Fichier: ProjetService.java
+   Problème: Colonnes mal alignées dans la sortie
+   Solution: Ajustement des espaces et tabulations
+
+4. ABSENCE DE NETTOYAGE DES RESSOURCES
+   Fichier: TestProjet.java
+   Problème: SessionFactory jamais fermée
+   Solution: Ajout d'un bloc finally avec HibernateUtil.close()
+
+5. GESTION D'ERREUR INAPPROPRIÉE
+   Fichier: HibernateUtil.java
+   Problème: Continue l'exécution même si Hibernate échoue
+   Solution: Throw ExceptionInInitializerError pour arrêter proprement
+
+6. VALIDATION DES DONNÉES MANQUANTE
+   Fichier: EmployeService.java
+   Problème: Pas de vérification pour les collections vides
+   Solution: Ajout d'un contrôle isEmpty()
+
+7. IMPORT MANQUANT
+   Fichier: TestProjet.java
+   Problème: HibernateUtil non importé
+   Solution: Ajout de l'import approprié
+
+================================================================================
+                        FICHIERS CRÉÉS/MODIFIÉS
+================================================================================
+
+ENTITÉS:
+✓ Projet.java          - Entité projet
+✓ Tache.java           - Entité tâche (avec named queries)
+✓ Employe.java         - Entité employé
+✓ EmployeTache.java    - Table de liaison
+
+SERVICES:
+✓ ProjetService.java    - Service pour les projets
+✓ TacheService.java    - Service pour les tâches
+✓ EmployeService.java  - Service pour les employés
+✓ EmployeTacheService.java - Service pour les relations
+
+UTILITAIRES:
+✓ HibernateUtil.java   - Configuration Hibernate
+
+CONFIGURATION:
+✓ pom.xml              - Maven dependencies
+✓ hibernate.cfg.xml    - Configuration Hibernate
+✓ application.properties
+
+TEST:
+✓ TestProjet.java      - Programme de test complet
+
+DOCUMENTATION:
+✓ README.md           - Documentation du projet
+✓ SETUP.md            - Guide d'installation
+✓ FIXES.md            - Détails des corrections
+✓ run.bat              - Script d'installation
+✓ run-test.bat        - Script de test
+
+================================================================================
+                        INSTALLATION
+================================================================================
+
+Étape 1: Télécharger les dépendances
+    mvn clean install
+
+Étape 2: Créer la base de données MySQL
+    CREATE DATABASE projet_management;
+
+Étape 3: Configurer hibernate.cfg.xml
+    Modifier username/password MySQL
+
+Étape 4: Exécuter le test
+    mvn exec:java -Dexec.mainClass="ma.projet.test.TestProjet"
+    ou
+    run-test.bat
+
+================================================================================
